@@ -476,6 +476,10 @@ protected:
 	langutil::CharStreamProvider const& m_charStreamProvider;
 
 	smt::SymbolicState& state();
+
+	/// Number of verification conditions that could not be proved.
+	/// Used by both BMC and CHC.
+	size_t m_unprovedAmt = 0;
 };
 
 }

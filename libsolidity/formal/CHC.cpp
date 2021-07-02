@@ -945,6 +945,7 @@ void CHC::resetSourceAnalysis()
 	Predicate::reset();
 	ArraySlicePredicate::reset();
 	m_blockCounter = 0;
+	m_unprovedAmt = 0;
 
 	bool usesZ3 = false;
 #ifdef HAVE_Z3
@@ -1594,6 +1595,18 @@ void CHC::checkVerificationTargets()
 		checkedErrorIds.insert(target.errorId);
 	}
 
+	if (m_unprovedAmt > 0 && !m_settings.showUnproved)
+		m_errorReporter.warning(
+			5840_error,
+			{},
+			"CHC: " +
+			to_string(m_unprovedAmt) +
+			" verification condition(s) could not be proved." +
+			" Enable the model checker option \"show unproved\" to see all of them." +
+			" Consider choosing a specific contract to be verified in order to reduce the solving problems." +
+			" Consider increasing the timeout per query."
+		);
+
 	// There can be targets in internal functions that are not reachable from the external interface.
 	// These are safe by definition and are not even checked by the CHC engine, but this information
 	// must still be reported safe by the BMC engine.
@@ -1649,11 +1662,15 @@ void CHC::checkAndReportTarget(
 			);
 	}
 	else if (!_unknownMsg.empty())
-		m_errorReporter.warning(
-			_errorReporterId,
-			location,
-			"CHC: " + _unknownMsg
-		);
+	{
+		++m_unprovedAmt;
+		if (m_settings.showUnproved)
+			m_errorReporter.warning(
+				_errorReporterId,
+				location,
+				"CHC: " + _unknownMsg
+			);
+	}
 }
 
 /**
