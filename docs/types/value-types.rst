@@ -166,7 +166,7 @@ the type and ``N`` represents how many fractional decimal digits are available. 
 
 Fixed point types are used to represent fractional numbers with a fixed precision. The number ``1.5`` is stored in a ``fixed8x2`` (8 bit number with
 two fractional digits) as ``1.50``. In the EVM, it is stored exactly the same way as the number ``150`` would be stored in an ``int8``.
-The largest and smallest numbers representable in a ``fixed8x2`` are ``1.27`` and ``-1.28``, respectively.
+The largest and the smallest number representable in a ``fixed8x2`` are ``1.27`` and ``-1.28``, respectively.
 
 Type conversions:
 
