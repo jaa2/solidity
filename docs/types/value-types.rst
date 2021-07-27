@@ -174,7 +174,7 @@ Implicit conversions from integer and fixed point types to ``fixedMxN`` types ca
 as long as all values can still be represented ("widening" conversion).
 
 Explicit conversions to integer types truncate the fractional part (towards zero) and can only be performed if the integer
-type can contain all resulting values after truncation.
+type can contain the resulting value after truncation.
 
 Explicit conversions to and from ``bytesNN`` types of matching width can be performed and do not change the internal representation.
 
