@@ -795,7 +795,8 @@ TypeResult FixedPointType::binaryOperatorResult(Token _operator, Type const* _ot
 		return commonType;
 	if (TokenTraits::isBitOp(_operator) || TokenTraits::isBooleanOp(_operator) || _operator == Token::Exp)
 		return nullptr;
-	return commonType;
+
+	return TypeResult::err("Arithmetic operators on fixed point types are not yet supported.");
 }
 
 tuple<bool, rational> RationalNumberType::parseRational(string const& _value)
