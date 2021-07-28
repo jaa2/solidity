@@ -529,6 +529,9 @@ public:
 	/// smallest value in general.
 	bigint minIntegerValue() const;
 
+	rational maxValue() const;
+	rational minValue() const;
+
 private:
 	unsigned m_totalBits;
 	unsigned m_fractionalDigits;
